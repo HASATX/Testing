@@ -1,0 +1,14 @@
+#Simple Query for counts from a facility
+setSSQueryDefaults(timeoutsec=300)
+setSSQueryDefaults(sharedBufferSize=50000000*4)
+
+querystring='()d.date_of_service:[20180101 TO 20180131] AND s.sending_facility:IN("sending_facility")'
+#Can use  AND OR NOT
+
+#get_hits gives count
+counts=get_hits(querystring,fields='sending_facility,mpid,patient_account_number', store=7)
+#drop duplicates based on...
+counts=counts.drop_duplicates('patient_account_number')
+#group results base on...
+counts=count.groupby('sending_facility').count()
+print(counts.to_html())
