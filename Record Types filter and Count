@@ -1,0 +1,42 @@
+import datetime as dt
+import pandas as pd
+setSSQueryDefaults(timeoutsec=3000)
+setSSQueryDefaults(sharedBufferSize=50000000*4)
+
+pd.set_option('display.width', 1000)
+starttime = dt.datetime.now()
+dNow = dt.date.today()
+dStart = dt.date.today()-dt.timedelta(days=1)
+pd.set_option('display.max_colwidth', -1)
+
+queryString = "()d.date_of_service:[20181114 TO 20181114] AND s.record_type:(mdm) AND s.sending_facility:IN(Methodist)"
+
+
+mdmcount = get_hits(queryString, fields = 'extract.health_system, extract.record_type', store = 8, limit = -1)
+
+print(len(mdmcount))
+
+# ---- REFERENCE LISTS ----
+health_system = ["HeartPlace","Methodist Healthcare System","UT Health San Antonio","University Health System","South Alamo Medical Group","Hunt Regional Healthcare","Texas Health Resources"]
+record_type = ["mdm","adt","encounter","lab","rad"]
+
+healthsystemlist = {'HeartPlace':'__HeartPlace__','Methodist Healthcare System':'__MHS_SSO__','UT Health San Antonio':'__UTHealth_SSO__','University Health System':'__UHS_SSO__','South Alamo Medical Group':'__SAMG_SSO__','Hunt Regional Healthcare':'__Hunt_SSO__','Texas Health Resources':'__THR_SSO__'}
+# ---- SET UP PARAMETERS ----
+params.add('health_system', type='list', default=health_system[0], choices=health_system, display_name='Health System', description="Filter by the Health System")
+params.add('sdate', type='date',display_name='Start Date', default = dStart, description='Select start date')
+params.add('edate', type='date',display_name='End Date)', default = dStart, description='Select end date')
+params.add('record_type', type='list', default=record_type[0], choices=record_type, display_name='Record Type', description="Select Record Type")
+
+params.end()
+sdate = params.sdate
+edate = params.edate
+health_system = params.health_system
+health_system = '","'.join(health_system)
+record_type = params.record_type
+
+if len(record_type)>1:
+    print("Select one record type only")
+    exit(0)
+record_type=record_type[0]
+print(record_type)
+record_typea = record_type.get(record_type)

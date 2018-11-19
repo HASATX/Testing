@@ -1,0 +1,15 @@
+#Setting up documentation area in a report
+
+def documentation():
+	documentation = '''<body><div style="max-width:1000px; padding-left:50px; padding-right:50px;margin:auto; margin-top:50px;">
+                        <h1 style="text-align:center;">Title</h1>
+                        <p><h3>Benefit:</h3>This line in the report identifies the Benefits.</p>
+                        <p><h3>Parameters:</h3>This report contains BLANK parameters that allow you to easily customize this report<ul>
+                            <li>Store: Select the store of interest.</li>
+                            <li>Start Date: Use to limit results to a specific feed date.</li>
+                            <li>End Date: Use to limit results to a specific feed date.</li>
+                        <p><h3>Output:</h3>This report contains 2 outputs<ul>
+                            <li>List of fields: Screen dump of all the field names used in the store.</li>
+                            <li>Download CSV: Downloadable file of the fields - currently busted and needs fixing.</li></p>
+                        </div></body>'''
+    show_documentation(documentation)

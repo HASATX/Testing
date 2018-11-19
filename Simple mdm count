@@ -1,0 +1,10 @@
+import datetime as dt
+import pandas as pd
+setSSQueryDefaults(timeoutsec=3000)
+setSSQueryDefaults(sharedBufferSize=50000000*4)
+
+queryString = "()d.date_of_service:[20181114 TO 20181114] AND s.record_type:(mdm) AND s.sending_facility:IN(Methodist)"
+
+mdmcount = get_hits(queryString, fields = 'extract.health_system, extract.record_type', store = 8, limit = -1)
+
+print(len(mdmcount))

@@ -1,20 +1,3 @@
-import datetime as dt
-import pandas as pd
-setSSQueryDefaults(timeoutsec=3000)
-setSSQueryDefaults(sharedBufferSize=50000000*4)
-
-pd.set_option('display.width', 1000)
-starttime = dt.datetime.now()
-dNow = dt.date.today()
-dStart = dt.date.today()-dt.timedelta(days=1)
-pd.set_option('display.max_colwidth', -1)
-
-queryString = "()d.date_of_service:[20181114 TO 20181114] AND s.record_type:(mdm) AND s.sending_facility:IN(Methodist)"
-
-mdmcount = get_hits(queryString, fields = 'extract.health_system, extract.record_type', store = 8, limit = -1)
-
-print(len(mdmcount))
-
 # ---- REFERENCE LISTS ----
 health_system = ["HeartPlace","Methodist Healthcare System","UT Health San Antonio","University Health System","South Alamo Medical Group","Hunt Regional Healthcare","Texas Health Resources"]
 record_type = ["mdm","adt","encounter","lab","rad"]
