@@ -1,0 +1,10 @@
+setSSQueryDefaults(timeoutsec=3000)
+setSSQueryDefaults(sharedBufferSize=50000000*4)
+
+queryString = "()d.date_of_service:[20181114 TO 20181114] AND s.record_type:(RAD) NOT s.sending_facility:IN(CHRISTUS)"
+
+radcount = get_hits(queryString, fields = 'extract.sending_facility, patient_account_number, extract.record_type', store = 9, limit = -1)
+
+radcount=mdmcount.drop_duplicates('patient_account_number')
+
+print(len(radcount))
